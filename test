@@ -1,0 +1,32 @@
+#!/bin/bash
+echo "=== System Health Report ==="
+echo "date:$(date)"
+
+#CPU Load
+echo "--CPU Load--"
+uptime
+hostname
+date
+
+#Memory
+echo "--Memory usage--"
+free -h
+
+#Disk
+echo "--Disk usage--"
+df -Th
+df -Th /
+
+#Top 5 processes
+echo "-- Top 5 CPU Processes--"
+ps -aux --sort=%cpu | head -n 30
+
+#Kernel
+echo "--Kernel--"
+uname -r
+uname -a
+cat /etc/redhat-release
+
+#Failed services
+echo "--failed services--"
+systemctl --failed

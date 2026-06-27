@@ -1,0 +1,11 @@
+#!/bin/bash
+SERVICE=("sssd" "podman" "sshd")
+
+for SERVICE in "${SERVICE[@]}"; do
+    if systemctl is-active --quiet $SERVICE; then
+         echo "$SERVICE is running"
+     else
+         echo "$SERVICE is not running - restarting..."
+         systemctl  restart $SERVICE
+    fi
+done

@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Hostname: $(hostname)"
+echo "OS: $(cat /etc/redhat-release)"
+echo "uptime: $(uptime)"
+echo "kernel: $(uname -r)"
+echo "cpu cores: $(nproc)"
+echo "RAM: $(free -h)"

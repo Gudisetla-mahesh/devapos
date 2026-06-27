@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import subprocess
+import os
+
+def run_command(command):
+    result = subprocess.run(command, shell=True, text=True, capture_output=True)
+    print(result.stdout)
+    if result.stderr:
+       print(result.stderr)
+
+def rotate_log(logfile):
+    path = f"/etc/logrotate.d/{logfile}"
+    if os.path.exists(path):
+       print(f"Rotating {logfile} logs...")
+       # FIXED: full logrotate command with path
+       run_command(f"logrotate -vf {path}")
+    else:
+       print(f"WARNING: {path} not found! skipping...")
+
+def main():
+    print("=====================================")
+    print(" Root Filesystem Remedy script")
+    print("=====================================")
+
+    # Step 1: check disk usage
+    print("\n[STEP 1]  checking Filesystem Disk Usage...")
+    print("----------------------------------")
+    run_command("df -Th /")
+
+    # step 2: Rotate Cisco-amp logs
+    print("\n[STEP 2] Rotating Cisco AMP Logs...")
+    print("----------------------------------")
+    # cisco-amp not installed, skipping
+    print("WARNING: cisco-amp not found on this system! skipping...")
+
+    #  step 3: Rotate syslog logs
+    print("\n[STEP 3] Rotating Syslog...")
+    rotate_log("rsyslog")
+
+    #  step 4: Find files larger than 100MB
+    print("\n[STEP 4]  Finding Files Larger than 100MB...")
+    print("-------------------------------------")
+    run_command("find / -xdev -size +100M -exec ls -lthr {} \\;")
+    
+    #  step 5: Find top 10 disk consuming files/folders
+    print("\n[STEP 5] Top 10 Disk COnsuming Files/Folders...")
+    run_command("du -ax / | sort -nr | head -10")
+
+    print("\n=================================")
+    print("  Remedy Steps Completed")
+    print("===================================")
+
+if __name__ == "__main__":
+   main()
+
