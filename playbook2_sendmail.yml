@@ -1,0 +1,15 @@
+---
+- name: Install Sendmail
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Install Sendmail Pacakage
+      yum:
+       name: sendmail
+       state: present
+
+    - name: Start Sendmail Service
+      systemd:
+         name: sendmail
+         state: started 
+         enabled: yes

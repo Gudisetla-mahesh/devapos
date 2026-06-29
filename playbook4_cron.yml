@@ -1,0 +1,17 @@
+---
+- name: Setup Cron Jobs
+  hosts: servers
+  become: yes
+  tasks:
+   - name: cron for Disk Usage Alert
+     cron:
+       name: "Disk Usage Alert"
+       minute: "*/30"
+       job: "/root/maheshg/diskusage"
+
+   - name: cron for root filesystem
+     cron:
+       name: "root filesystem"
+       minute: '0'
+       hour: "*/2"
+       job: "/root/maheshg/test3"
