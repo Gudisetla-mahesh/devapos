@@ -8,8 +8,20 @@
         dest: /root/maheshg/diskusage
         mode: '0777'
   
-    - name: copy  Root file script
+    - name: Copy  Root file script
       copy: 
         src: /root/maheshg/test3
         dest: /root/maheshg/test3
         mode: '0777'
+
+    -  name: Copy System Info Script
+       copy: 
+         src: /root/maheshg/test1
+         dest: /root/maheshg/test1
+         mode: '0777'
+ 
+    -  name: Copy Service Monitor Script
+       copy:
+         src: /root/maheshg/test2
+         dest: /root/maheshg/test2
+         mode: '0777'

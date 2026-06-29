@@ -15,3 +15,17 @@
        minute: '0'
        hour: "*/2"
        job: "/root/maheshg/test3"
+
+   - name: cron for System Info
+     cron:
+       name: "System Info"
+       minute: "*/10"
+       job: "/root/maheshg/test1"
+
+
+   - name: cron for Service Monitor
+     cron:
+       name: "Service Monitor"
+       minute: "0"
+       hour: "9"
+       job: "/root/maheshg/test2"
