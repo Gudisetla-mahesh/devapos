@@ -16,7 +16,17 @@ pipeline {
               echo 'Running tests...'
            }
         }
-     }
+        stage('Deploy') {
+           steps {
+              withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
+                  sh 'kubectl get nodes'
+                  sh 'kubectl apply -f cpu.yaml'
+               }
+           }
+        }
+    }
 }
+     
+
 
 
